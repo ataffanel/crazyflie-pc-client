@@ -110,16 +110,16 @@ class SdlReader():
     def enableRawReading(self, deviceId):
         """Enable reading of raw values (without mapping)"""
         logger.debug("Starting joystick {} for raw reading".format(deviceId))
-        #if self.j:
-        #    sdl2.joystick.SDL_JoystickClose(self.j)
-        #    self.j = None
+        if self.j:
+            sdl2.joystick.SDL_JoystickClose(self.j)
+            self.j = None
         self.j = sdl2.joystick.SDL_JoystickOpen(deviceId)
 
     def disableRawReading(self):
         """Disable raw reading"""
         logger.debug("Stopping joystick raw reading, closing joystick")
-        #sdl2.joystick.SDL_JoystickClose(self.j)
-        #self.j = None
+        sdl2.joystick.SDL_JoystickClose(self.j)
+        self.j = None
 
     def readRawValues(self):
         """Read out the raw values from the device"""
