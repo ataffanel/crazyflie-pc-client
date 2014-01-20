@@ -91,11 +91,21 @@ def main():
         logger.critical("No pyusb installation found, exiting!")
         sys.exit(1)
 
+    has_pysdl2 = False
     try:
-        import pygame
-    except ImportError:
-        logger.critical("No pygame installation found, exiting!")
-        sys.exit(1)
+        import sdl2
+        has_pysdl2 = True
+        logger.info("Using sdl2 as joystick driver")
+    except ImportError as e:
+        logger.info("Cannot use sdl2: {}".format(e))
+
+    if not has_pysdl2:
+        try:
+            import pygame
+            logger.info("Using PyGame as joystick driver")
+        except ImportError:
+            logger.critical("No pygame installation found, exiting!")
+            sys.exit(1)
 
     try:
         import PyQt4
